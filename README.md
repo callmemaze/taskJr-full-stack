@@ -3,6 +3,11 @@ Using React, Node.js, Express & MongoDB, Tailwind, shadcn Full Stack MERN Blog. 
 For Installation
 
 ```javascript
+cd client
+npm install
+```
+```javascript
+cd server
 npm install
 ```
 
