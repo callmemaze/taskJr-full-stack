@@ -1,4 +1,4 @@
-sing React, Node.js, Express & MongoDB Full Stack MERN Blog. It is a simple blog posting app that allows users to post interesting blogs.
+Using React, Node.js, Express & MongoDB, Tailwind, shadcn Full Stack MERN Blog. It is a simple blog posting app that allows users to post interesting blogs.
 
 For Installation
 
