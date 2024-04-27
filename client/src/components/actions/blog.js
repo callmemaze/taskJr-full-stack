@@ -4,6 +4,7 @@ import {
   fetchBlog,
   fetchBlogDetail,
   searchCategory,
+  updateBlog,
 } from "../../store/slices/blogSlices";
 import * as api from "../api/index.js";
 
@@ -53,6 +54,15 @@ export const getPostsByCategory = (category) => async (dispatch) => {
       data: { data },
     } = await api.fetchBlogByCategory(category);
     dispatch(searchCategory(data));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updatePost = (id, post) => async (dispatch) => {
+  try {
+    const { data } = await api.updateBlog(id, post);
+    dispatch(updateBlog(data));
   } catch (error) {
     console.log(error);
   }

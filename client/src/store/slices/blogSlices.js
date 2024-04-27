@@ -29,6 +29,14 @@ const blogSlice = createSlice({
     searchCategory(state, action) {
       return { ...state, blog: action.payload };
     },
+    updateBlog(state, action) {
+      return {
+        ...state,
+        blog: state.blog.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
+    },
   },
 });
 
@@ -39,4 +47,5 @@ export const {
   fetchBlogDetail,
   commentBlog,
   searchCategory,
+  updateBlog,
 } = blogSlice.actions;

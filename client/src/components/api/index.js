@@ -21,7 +21,7 @@ export const createBlog = (newBlog) => API.post("/blog", newBlog);
 export const commentBlog = (value, id) =>
   API.post(`/blog/${id}/commentPost`, { value });
 export const updateBlog = (id, updatedPost) =>
-  API.patch(`/blogs/${id}`, updatedPost);
+  API.patch(`/blog/${id}`, updatedPost);
 export const deleteBlog = (id) => API.delete(`/blog/${id}`);
 export const fetchBlogByCategory = (category) =>
   API.get(`/blog/search/category?name=${category}`);

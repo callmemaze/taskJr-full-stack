@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/userSlice";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import { CreateBlog } from "./CreateBlog";
+import { Search } from "lucide-react";
 
 const Header = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -35,6 +36,13 @@ const Header = () => {
         </p>
       </Link>
       <div className="flex items-center gap-5">
+        <Button>
+          {" "}
+          <Search />
+          <Link to="/search" className="ml-1">
+            Search
+          </Link>{" "}
+        </Button>
         <CreateBlog />
 
         {!user ? (

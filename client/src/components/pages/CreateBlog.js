@@ -22,6 +22,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createPost } from "../actions/blog";
 import FileBase from "react-file-base64";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "../ui/use-toast";
 
 export function CreateBlog() {
   const [blogData, setBlogData] = useState({
@@ -32,14 +34,44 @@ export function CreateBlog() {
     tags: "",
     selectedFile: "",
   });
+  const { toast } = useToast();
   const user = JSON.parse(localStorage.getItem("profile"));
+
   const handleChange = (e) => {
     setBlogData({ ...blogData, [e.target.id]: e.target.value });
   };
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPost({ ...blogData, author: user?.result?.name }));
+    if (blogData.title === "") {
+      toast({
+        title: "Error",
+        variant: "destructive",
+        description: "Title cannot be blank",
+      });
+    } else if (blogData.content === "") {
+      toast({
+        title: "Error",
+        variant: "destructive",
+        description: "Content cannot be blank",
+      });
+    } else if (blogData.category === "") {
+      toast({
+        title: "Error",
+        variant: "destructive",
+        description: "Category cannot be blank",
+      });
+    } else if (blogData.tags === "") {
+      toast({
+        title: "Error",
+        variant: "destructive",
+        description: "Tags cannot be blank",
+      });
+    } else {
+      dispatch(createPost({ ...blogData, author: user?.result?.name }));
+      navigate("/");
+    }
   };
   const clear = () => {
     setBlogData({

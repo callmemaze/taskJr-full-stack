@@ -1,5 +1,4 @@
 import { Button } from "../ui/button";
-import { SquarePlus } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -20,26 +19,28 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createPost } from "../actions/blog";
+import { updatePost } from "../actions/blog";
 import FileBase from "react-file-base64";
+import { useParams } from "react-router-dom";
 
 export function EditBlog({ blog }) {
   const [blogData, setBlogData] = useState({
     author: "",
-    title: "",
-    content: "",
-    category: "",
-    tags: "",
-    selectedFile: "",
+    title: blog.title,
+    content: blog.content,
+    category: blog.category,
+    tags: blog.tags,
+    selectedFile: blog.selectedFile,
   });
   const user = JSON.parse(localStorage.getItem("profile"));
   const handleChange = (e) => {
     setBlogData({ ...blogData, [e.target.id]: e.target.value });
   };
+  const { id } = useParams();
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPost({ ...blogData, author: user?.result?.name }));
+    dispatch(updatePost(id, { ...blogData, author: user?.result?.name }));
   };
   const clear = () => {
     setBlogData({
@@ -90,13 +91,17 @@ export function EditBlog({ blog }) {
               id="content"
               className="col-span-3"
               onChange={handleChange}
+              defaultValue={blog.content}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="category" className="text-right">
               Categories
             </Label>
-            <Select onValueChange={handleSelectChange}>
+            <Select
+              onValueChange={handleSelectChange}
+              defaultValue={blog.category}
+            >
               <SelectTrigger id="category" className="w-[250px]">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
@@ -112,7 +117,7 @@ export function EditBlog({ blog }) {
             <Label htmlFor="tags" className="text-right">
               Tags
             </Label>
-            <Select onValueChange={handleTagsChange}>
+            <Select onValueChange={handleTagsChange} defaultValue={blog.tags}>
               <SelectTrigger id="tags" className="w-[250px]">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
@@ -139,7 +144,9 @@ export function EditBlog({ blog }) {
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={handleSubmit}>Post Blog</Button>
+          <Button onClick={handleSubmit} className="w-full">
+            Edit Blog
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
